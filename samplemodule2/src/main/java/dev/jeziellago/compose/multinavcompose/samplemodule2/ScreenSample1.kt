@@ -1,4 +1,4 @@
-package dev.jeziellago.compose.multinavcompose.module1
+package dev.jeziellago.compose.multinavcompose.samplemodule2
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -13,16 +13,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-internal fun ScreenSampleFirst(onClick: (String) -> Unit) {
+internal fun ScreenSampleSecond(message: String) {
     Column(
         modifier = Modifier
             .background(Color.White)
             .padding(8.dp)
     ) {
-        Text(text = "Screen First!")
-        Spacer(modifier = Modifier.size(16.dp))
-        Button(onClick = { onClick("Hello from screen 1!") }) {
-            Text(text = "Next screen")
-        }
+        Text(text = "Screen Second! Received: $message")
     }
 }

@@ -1,12 +1,18 @@
-package dev.jeziellago.compose.multinavcompose.module1
+package dev.jeziellago.compose.multinavcompose.samplemodule2
 
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
 import dev.jeziellago.compose.multinavcompose.NavComposableModule
 
-val screenFirstNavModule = NavComposableModule { graph, navController ->
-    graph.composable("screen-first") {
-        ScreenSampleFirst(onClick = { message ->
-            navController.navigate("screen-second/$message")
-        })
+private const val MESSAGE_ARG_KEY = "MESSAGE"
+
+val screenSecondNavModule = NavComposableModule { graph, _ ->
+    graph.composable(
+        route = "screen-second/{$MESSAGE_ARG_KEY}",
+        arguments = listOf(navArgument(MESSAGE_ARG_KEY) { type = NavType.StringType })
+    ) { backStackEntry ->
+        val message = checkNotNull(backStackEntry.arguments?.getString(MESSAGE_ARG_KEY))
+        ScreenSampleSecond(message)
     }
 }

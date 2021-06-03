@@ -8,3 +8,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "MultiNavCompose"
 include ':multinavcompose'
+include ':samplemodule1'
+include ':sample'
+include ':samplemodule2'
