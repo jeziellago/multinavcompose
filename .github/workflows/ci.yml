@@ -15,5 +15,7 @@ jobs:
           java-version: 1.11
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Build with Gradle
-        run: ./gradlew :multinavcompose:publishToMavenLocal
+      - name: Lint and Test
+        run: ./gradlew ktlintCheck :multinavcompose:testDebugUnitTest
+      - name: Build
+        run: ./gradlew :multinavcompose:assembleRelease

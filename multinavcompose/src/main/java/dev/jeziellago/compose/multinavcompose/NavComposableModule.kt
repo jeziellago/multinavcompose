@@ -3,8 +3,14 @@ package dev.jeziellago.compose.multinavcompose
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 
-fun multiNavModules(vararg ncModules: NavComposableModule) {
-    MultiNavCompose.navComposableModules.addAll(ncModules)
+internal const val APP_GRAPH_NAME = "multinavcompose.AppNavGraph"
+
+fun multiNavModules(
+    vararg ncModules: NavComposableModule,
+    graphName: () -> String = { APP_GRAPH_NAME }
+) {
+    require(ncModules.isNotEmpty()) { "At least one NavComposeModule is required." }
+    MultiNavCompose.navComposableModules[graphName()] = ncModules.toList()
 }
 
 fun interface NavComposableModule {

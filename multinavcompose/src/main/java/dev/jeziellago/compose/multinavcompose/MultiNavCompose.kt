@@ -5,13 +5,21 @@ import androidx.navigation.NavHostController
 
 fun NavGraphBuilder.loadMultiNavComposables(
     navController: NavHostController,
-    navComposableModules: List<NavComposableModule> = MultiNavCompose.navComposableModules
+    graphName: String = APP_GRAPH_NAME,
+    navComposableModules: List<NavComposableModule>? = null
 ) {
-    navComposableModules.forEach { module ->
-        module.createNavComposables(this, navController)
+    (navComposableModules ?: getNavComposableModulesFromGraph(graphName))
+        .forEach { module ->
+            module.createNavComposables(this, navController)
+        }
+}
+
+fun getNavComposableModulesFromGraph(graphName: String): List<NavComposableModule> {
+    return checkNotNull(MultiNavCompose.navComposableModules[graphName]) {
+        "NavComposableModules not found for $graphName. Did you called multiNavModules before?"
     }
 }
 
 internal object MultiNavCompose {
-    val navComposableModules = mutableListOf<NavComposableModule>()
+    val navComposableModules = mutableMapOf<String, List<NavComposableModule>>()
 }
